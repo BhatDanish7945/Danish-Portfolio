@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Danish Shafi Bhat — UA Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #07090f;
+    --bg2: #0d1018;
+    --bg3: #111520;
+    --accent: #00e5b0;
+    --accent2: #005c47;
+    --accent-dim: #00e5b022;
+    --text: #eef0f6;
+    --muted: #8892a4;
+    --border: #1e2330;
+    --card: #0f1420;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #000; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 4px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(7,9,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--text); letter-spacing: 0.04em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.85rem; text-decoration: none;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s; cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5% 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    opacity: 0.4;
+  }
+  .hero-glow {
+    position: absolute; top: 20%; left: 10%; width: 500px; height: 500px;
+    background: radial-gradient(circle, #00e5b018 0%, transparent 70%);
+    z-index: 0; pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent-dim); border: 1px solid var(--accent2);
+    color: var(--accent); font-size: 0.78rem; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 0.35rem 0.9rem;
+    border-radius: 100px; margin-bottom: 1.8rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--muted); margin-top: 1.5rem; max-width: 580px;
+    font-weight: 300; line-height: 1.8;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn {
+    padding: 0.8rem 1.8rem; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; text-decoration: none;
+    transition: all 0.2s; letter-spacing: 0.03em; display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent); color: #000;
+    border: none;
+  }
+  .btn-primary:hover { background: #00ffc4; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 2rem;
+    font-weight: 800; color: var(--accent);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 5%; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .section-label::after {
+    content: ''; flex: 0 0 40px; height: 1px; background: var(--accent);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800; line-height: 1.15; margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--muted); line-height: 1.9; font-weight: 300; margin-bottom: 1rem; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-details { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.8rem; }
+  .about-detail {
+    display: flex; gap: 1rem; align-items: flex-start;
+    font-size: 0.9rem;
+  }
+  .about-detail-label { color: var(--muted); min-width: 80px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+  .about-detail-val { color: var(--text); }
+  .about-highlight {
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem; border-radius: 8px;
+  }
+  .about-highlight p { font-size: 1.05rem; color: var(--text); font-style: italic; font-weight: 300; line-height: 1.8; }
+
+  /* EXPERIENCE */
+  .exp-timeline { position: relative; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 16px; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .exp-item {
+    display: grid; grid-template-columns: 48px 1fr; gap: 1.5rem;
+    margin-bottom: 3.5rem; position: relative;
+  }
+  .exp-dot-wrap { display: flex; justify-content: center; padding-top: 4px; }
+  .exp-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+    box-shadow: 0 0 0 4px var(--accent2);
+    flex-shrink: 0; margin-top: 4px;
+  }
+  .exp-dot.dim { background: var(--muted); box-shadow: 0 0 0 4px var(--bg3); }
+  .exp-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.6rem 1.8rem;
+    transition: border-color 0.2s;
+  }
+  .exp-card:hover { border-color: var(--accent2); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem; }
+  .exp-company { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .exp-badge {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.25rem 0.7rem; border-radius: 100px;
+    background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent2);
+  }
+  .exp-role { font-size: 0.9rem; color: var(--accent); font-weight: 500; margin-bottom: 0.3rem; }
+  .exp-period { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 1.2rem; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-bullets li {
+    display: flex; gap: 0.7rem; color: var(--muted);
+    font-size: 0.9rem; line-height: 1.7; font-weight: 300;
+  }
+  .exp-bullets li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+  .exp-sub-section { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
+  .exp-sub-title { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+
+  /* SKILLS */
+  .skills-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .skill-group {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.4rem 1.6rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-group:hover { border-color: var(--accent2); transform: translateY(-2px); }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif; font-size: 0.8rem;
+    font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-group-title::before { content: '▸'; font-size: 0.7rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.8rem; padding: 0.3rem 0.75rem;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 5px; color: var(--text);
+    transition: all 0.15s;
+  }
+  .skill-tag:hover { background: var(--accent-dim); border-color: var(--accent2); color: var(--accent); }
+
+  /* EDUCATION */
+  .edu-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem 2.4rem;
+    display: flex; gap: 2rem; align-items: flex-start;
+    max-width: 700px;
+  }
+  .edu-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: var(--accent-dim); border: 1px solid var(--accent2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800;
+    color: var(--accent); flex-shrink: 0;
+  }
+  .edu-school { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; }
+  .edu-degree { color: var(--accent); font-size: 0.9rem; margin: 0.2rem 0; }
+  .edu-year { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.05em; }
+  .edu-note { font-size: 0.85rem; color: var(--muted); margin-top: 0.7rem; font-weight: 300; line-height: 1.7; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .contact-text { color: var(--muted); font-weight: 300; line-height: 1.9; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 8px;
+    text-decoration: none; color: var(--text);
+    transition: all 0.2s; font-size: 0.9rem;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+  .contact-icon {
+    width: 36px; height: 36px; border-radius: 6px;
+    background: var(--accent-dim); border: 1px solid var(--accent2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; color: var(--accent); flex-shrink: 0;
+  }
+  .contact-available {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(0,229,176,0.07); border: 1px solid var(--accent2);
+    color: var(--accent); font-size: 0.8rem; padding: 0.5rem 1rem;
+    border-radius: 100px; margin-bottom: 1.5rem;
+  }
+  .contact-available::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 2s infinite;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 2rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.8rem; color: var(--muted);
+  }
+  footer span { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 0 5%; }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* SPLASH SCREEN */
+  #splash {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #07090f;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.9s ease, visibility 0.9s ease;
+  }
+  #splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+  .splash-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(#1e233044 1px, transparent 1px), linear-gradient(90deg, #1e233044 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  .splash-glow-1 {
+    position: absolute; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, #00e5b014 0%, transparent 65%);
+    top: -100px; left: -100px; animation: driftA 8s ease-in-out infinite alternate;
+  }
+  .splash-glow-2 {
+    position: absolute; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, #005c4720 0%, transparent 65%);
+    bottom: -80px; right: -80px; animation: driftB 7s ease-in-out infinite alternate;
+  }
+  @keyframes driftA { from { transform: translate(0,0); } to { transform: translate(60px,40px); } }
+  @keyframes driftB { from { transform: translate(0,0); } to { transform: translate(-50px,-30px); } }
+  .splash-content {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .splash-line {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.2rem, 11vw, 8.5rem);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.03em;
+    overflow: hidden; display: block;
+  }
+  .splash-line .word {
+    display: inline-block;
+    transform: translateY(110%); opacity: 0;
+    animation: wordUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .splash-line:nth-child(1) .word { animation-delay: 0.15s; }
+  .splash-line:nth-child(2) .word { animation-delay: 0.32s; }
+  .splash-line:nth-child(3) .word { animation-delay: 0.49s; color: var(--accent); }
+  @keyframes wordUp { to { transform: translateY(0); opacity: 1; } }
+  .splash-role {
+    font-size: clamp(0.7rem, 1.4vw, 0.9rem); letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--muted); margin-top: 1.6rem;
+    opacity: 0; animation: fadeIn 0.6s 0.9s ease forwards;
+  }
+  .splash-role span { color: var(--accent); }
+  .splash-divider {
+    width: 0; height: 1px; background: var(--accent); margin: 1.1rem auto;
+    animation: expandLine 0.5s 1.1s ease forwards;
+  }
+  @keyframes expandLine { to { width: 70px; } }
+  .splash-tagline {
+    font-size: clamp(0.78rem, 1.3vw, 0.95rem); color: var(--muted); font-weight: 300;
+    opacity: 0; animation: fadeIn 0.6s 1.3s ease forwards;
+    max-width: 400px; line-height: 1.75;
+  }
+  .splash-enter {
+    margin-top: 2.8rem;
+    opacity: 0; animation: fadeIn 0.6s 1.8s ease forwards;
+    display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+    cursor: pointer;
+  }
+  .splash-enter-btn {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: transparent; border: 1px solid var(--accent2);
+    color: var(--accent); font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.8rem 2rem; border-radius: 100px; cursor: pointer;
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .splash-enter-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease; z-index: 0;
+  }
+  .splash-enter-btn:hover::before { transform: scaleX(1); }
+  .splash-enter-btn:hover { color: #000; border-color: var(--accent); }
+  .splash-enter-btn span, .splash-enter-btn svg { position: relative; z-index: 1; transition: color 0.25s; }
+  .splash-hint {
+    font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+    animation: bob 2s 2.8s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0); opacity:0.6; } 50% { transform: translateY(5px); opacity:1; } }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .splash-corner {
+    position: absolute; font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    opacity: 0; animation: fadeIn 0.5s 2s ease forwards;
+  }
+  .splash-corner.tl { top: 2rem; left: 2rem; }
+  .splash-corner.tr { top: 2rem; right: 2rem; text-align: right; }
+  .splash-corner.bl { bottom: 2rem; left: 2rem; }
+  .splash-corner.br { bottom: 2rem; right: 2rem; }
+  .splash-corner span { color: var(--accent); }
+
+  /* FEATURED WORK */
+  .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .work-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.8rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .work-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .work-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .work-card:hover::before { opacity: 1; }
+  .work-card-num {
+    font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 800;
+    letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase;
+  }
+  .work-card-title {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
+    color: var(--text); line-height: 1.3;
+  }
+  .work-card-desc {
+    font-size: 0.875rem; color: var(--muted); line-height: 1.8;
+    font-weight: 300; flex: 1;
+  }
+  .work-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .work-card-tag {
+    font-size: 0.72rem; padding: 0.22rem 0.6rem;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 4px; color: var(--muted); letter-spacing: 0.04em;
+  }
+  .work-card-impact {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; color: var(--accent); font-weight: 500;
+    padding-top: 0.8rem; border-top: 1px solid var(--border);
+  }
+  .work-card-impact::before { content: '↗'; font-size: 0.9rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 2rem; }
+    nav { padding: 1rem 4%; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-grid"></div>
+  <div class="splash-glow-1"></div>
+  <div class="splash-glow-2"></div>
+  <div class="splash-corner tl">Portfolio <span>2026</span></div>
+  <div class="splash-corner tr">UA Specialist<br/><span>Performance Marketing</span></div>
+  <div class="splash-corner bl">Srinagar, <span>India</span></div>
+  <div class="splash-corner br">Mobile <span>Growth</span></div>
+  <div class="splash-content">
+    <span class="splash-line"><span class="word">Danish</span></span>
+    <span class="splash-line"><span class="word">Shafi</span></span>
+    <span class="splash-line"><span class="word">Bhat</span></span>
+    <div class="splash-role">User Acquisition <span>&amp;</span> Performance Marketing</div>
+    <div class="splash-divider"></div>
+    <div class="splash-tagline">Driving mobile growth through data-driven campaigns across global geographies.</div>
+    <div class="splash-enter" onclick="enterSite()">
+      <button class="splash-enter-btn">
+        <span>Enter Portfolio</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="splash-hint">&#8595; scroll to explore</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">D<span>.</span>Bhat</div>
+  <ul class="nav-links">
+    <li><a onclick="scrollToSection('about')">About</a></li>
+    <li><a onclick="scrollToSection('experience')">Experience</a></li>
+    <li><a onclick="scrollToSection('work')">Work</a></li>
+    <li><a onclick="scrollToSection('skills')">Skills</a></li>
+    <li><a onclick="scrollToSection('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Open to opportunities</div>
+    <h1>Danish<br/>Shafi <span>Bhat</span></h1>
+    <p class="hero-subtitle">User Acquisition Specialist driving mobile growth through data-driven performance marketing — managing CPI, CPA & CPR campaigns across global geographies.</p>
+    <div class="hero-cta">
+      <a onclick="scrollToSection('contact')" class="btn btn-primary" style="cursor:pointer;">Get In Touch</a>
+      <a onclick="scrollToSection('experience')" class="btn btn-outline" style="cursor:pointer;">View Experience</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Geographies</div>
+      </div>
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">MMP Platforms</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">About</div>
+  <div class="section-title reveal">Performance marketer.<br/>Data-driven by nature.</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a results-driven UA Specialist with <strong>2+ years of experience</strong> managing CPI, CPA, and CPR campaigns across global geographies. I operate end-to-end network-side performance marketing — from publisher onboarding and postback configuration to fraud control and ROI optimization.</p>
+      <p>My approach is rooted in <strong>data-driven decision-making</strong>. I monitor KPIs daily, execute precise bid adjustments, and scale high-performing campaigns by identifying top traffic sources and negotiating volume deals with publishers.</p>
+      <p>I transitioned into performance marketing from a Mechanical Engineering background through self-driven learning — bringing an <strong>analytical, systems-thinking mindset</strong> to every campaign I manage.</p>
+      <div class="about-details">
+        <div class="about-detail"><span class="about-detail-label">Location</span><span class="about-detail-val">Srinagar, J&K, India</span></div>
+        <div class="about-detail"><span class="about-detail-label">Email</span><span class="about-detail-val">danishshafibhatt@gmail.com</span></div>
+        <div class="about-detail"><span class="about-detail-label">Phone</span><span class="about-detail-val">+91-9682602808</span></div>
+        <div class="about-detail"><span class="about-detail-label">LinkedIn</span><span class="about-detail-val">linkedin.com/in/danish-bhat</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-highlight">
+        <p>"Proven ability to independently operate end-to-end network-side performance marketing — consistently improving CVR and reducing CPA across active campaigns."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label reveal">Experience</div>
+  <div class="section-title reveal">Where I've worked.</div>
+  <div class="exp-timeline">
+
+    <!-- Iconpeak -->
+    <div class="exp-item reveal">
+      <div class="exp-dot-wrap"><div class="exp-dot"></div></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Iconpeak</div>
+          <div class="exp-badge">Current</div>
+        </div>
+        <div class="exp-role">UA Specialist</div>
+        <div class="exp-period">May 2024 – Present</div>
+
+        <div class="exp-sub-section">
+          <div class="exp-sub-title">Campaign Management & Optimization</div>
+          <ul class="exp-bullets">
+            <li>Independently manage network-side performance marketing across 8+ geographies, handling multiple CPI, CPA, and CPR campaigns across diverse traffic sources.</li>
+            <li>Execute data-driven optimization — bid adjustments, traffic source pruning, placement optimization — consistently improving CVR and reducing CPA across active campaigns.</li>
+            <li>Monitor daily KPIs (CTR, CVR, CPI, D1/D7 retention, ROI) and implement corrective actions to sustain efficiency and profitability targets.</li>
+            <li>Scale high-performing campaigns by identifying top traffic sources, negotiating volume deals, and coordinating with publishers on placement-level performance.</li>
+          </ul>
+        </div>
+
+        <div class="exp-sub-section">
+          <div class="exp-sub-title">Attribution, Tracking & Integrations</div>
+          <ul class="exp-bullets">
+            <li>Manage and validate conversion tracking via AppsFlyer, Adjust, Swarm, Affise, and Impact — ensuring accurate real-time data flow between advertiser and internal systems.</li>
+            <li>Handle end-to-end API integrations and postback configurations for new publisher/advertiser onboarding, reducing go-live time and tracking discrepancies.</li>
+          </ul>
+        </div>
+
+        <div class="exp-sub-section">
+          <div class="exp-sub-title">Fraud Control, Partnerships & Reporting</div>
+          <ul class="exp-bullets">
+            <li>Identify and mitigate fraudulent/low-quality traffic by monitoring behavioral anomalies and enforcing advertiser restrictions.</li>
+            <li>Work directly with advertisers and publishers to onboard campaigns, negotiate commercial terms, define KPIs, and prepare detailed performance reports.</li>
+            <li>Collaborate with BD, operations, and technical teams to test new offers, expand publisher partnerships, and scale revenue-generating campaigns.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chinar Libertas -->
+    <div class="exp-item reveal">
+      <div class="exp-dot-wrap"><div class="exp-dot dim"></div></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Chinar Libertas</div>
+          <div class="exp-badge" style="background: transparent; color: var(--muted); border-color: var(--border);">Internship</div>
+        </div>
+        <div class="exp-role">Customer Success Intern</div>
+        <div class="exp-period">Feb 2024 – Apr 2024</div>
+        <ul class="exp-bullets" style="margin-top: 1rem;">
+          <li>Assisted advertiser, publisher, and affiliate network management for CPI and CPA campaigns; supported MMP campaign setup, postback implementation, and performance monitoring.</li>
+          <li>Conducted market and competitor research; gained foundational knowledge of API integrations, attribution models, and mobile advertising fraud prevention.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURED WORK -->
+<section id="work">
+  <div class="section-label reveal">Featured Work</div>
+  <div class="section-title reveal">Key initiatives &amp;<br/>campaigns.</div>
+  <div class="work-grid">
+
+    <div class="work-card reveal">
+      <div class="work-card-num">01</div>
+      <div class="work-card-title">Multi-Geography UA Campaign Management</div>
+      <div class="work-card-desc">Independently managed network-side performance marketing across 8+ geographies simultaneously — executing bid optimizations, traffic source pruning, and placement-level tuning to consistently improve CVR while reducing CPA across all active campaigns.</div>
+      <div class="work-card-tags">
+        <span class="work-card-tag">CPI</span>
+        <span class="work-card-tag">CPA</span>
+        <span class="work-card-tag">CPR</span>
+        <span class="work-card-tag">Bid Optimization</span>
+        <span class="work-card-tag">Global Geos</span>
+      </div>
+      <div class="work-card-impact">Improved CVR &amp; reduced CPA across 8+ markets</div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-num">02</div>
+      <div class="work-card-title">MMP Integration &amp; Postback Architecture</div>
+      <div class="work-card-desc">Led end-to-end API integrations and postback configurations for new publisher and advertiser onboarding across AppsFlyer, Adjust, Swarm, Affise, and Impact — streamlining go-live timelines and eliminating tracking discrepancies between advertiser and internal systems.</div>
+      <div class="work-card-tags">
+        <span class="work-card-tag">AppsFlyer</span>
+        <span class="work-card-tag">Adjust</span>
+        <span class="work-card-tag">Affise</span>
+        <span class="work-card-tag">API Integration</span>
+        <span class="work-card-tag">Postback Config</span>
+      </div>
+      <div class="work-card-impact">Reduced go-live time &amp; tracking discrepancies</div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-num">03</div>
+      <div class="work-card-title">Fraud Detection &amp; Traffic Quality System</div>
+      <div class="work-card-desc">Built and operated a continuous fraud monitoring workflow — identifying behavioral anomalies, enforcing advertiser restrictions, and maintaining traffic compliance standards to protect campaign ROI and ensure only high-quality installs were attributed and billed.</div>
+      <div class="work-card-tags">
+        <span class="work-card-tag">Fraud Detection</span>
+        <span class="work-card-tag">Anomaly Monitoring</span>
+        <span class="work-card-tag">Publisher Compliance</span>
+        <span class="work-card-tag">Traffic Quality</span>
+      </div>
+      <div class="work-card-impact">Protected advertiser ROI from fraudulent traffic</div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-num">04</div>
+      <div class="work-card-title">Publisher Partnership &amp; Revenue Scaling</div>
+      <div class="work-card-desc">Identified and scaled top-performing traffic sources by negotiating volume deals, coordinating on placement-level performance, and onboarding new publisher partnerships — working closely with BD, operations, and technical teams to grow revenue-generating campaigns.</div>
+      <div class="work-card-tags">
+        <span class="work-card-tag">Publisher Relations</span>
+        <span class="work-card-tag">Volume Deals</span>
+        <span class="work-card-tag">Campaign Scaling</span>
+        <span class="work-card-tag">Revenue Growth</span>
+      </div>
+      <div class="work-card-impact">Expanded publisher base &amp; scaled top campaigns</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal">Skills</div>
+  <div class="section-title reveal">Tools & expertise.</div>
+  <div class="skills-wrap">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">MMP Platforms</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AppsFlyer</span>
+        <span class="skill-tag">Adjust</span>
+        <span class="skill-tag">Swarm</span>
+        <span class="skill-tag">Affise</span>
+        <span class="skill-tag">Impact</span>
+        <span class="skill-tag">Everflow</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Campaign Types</div>
+      <div class="skill-tags">
+        <span class="skill-tag">CPI</span>
+        <span class="skill-tag">CPA</span>
+        <span class="skill-tag">CPR</span>
+        <span class="skill-tag">Retargeting</span>
+        <span class="skill-tag">In-App Events</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Key Metrics</div>
+      <div class="skill-tags">
+        <span class="skill-tag">CTR</span>
+        <span class="skill-tag">CVR</span>
+        <span class="skill-tag">CPI</span>
+        <span class="skill-tag">ROAS</span>
+        <span class="skill-tag">LTV</span>
+        <span class="skill-tag">D1/D7 Retention</span>
+        <span class="skill-tag">ROI</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Technical</div>
+      <div class="skill-tags">
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Postback Config</span>
+        <span class="skill-tag">Event Tracking</span>
+        <span class="skill-tag">Attribution Modeling</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Fraud & Traffic</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Traffic Quality Analysis</span>
+        <span class="skill-tag">Fraud Detection</span>
+        <span class="skill-tag">Publisher Compliance</span>
+        <span class="skill-tag">Anomaly Monitoring</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Reporting & Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Performance Reporting</span>
+        <span class="skill-tag">Campaign Analytics</span>
+        <span class="skill-tag">Excel</span>
+        <span class="skill-tag">Google Sheets</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label reveal">Education</div>
+  <div class="section-title reveal">Academic background.</div>
+  <div class="edu-card reveal">
+    <div class="edu-icon">UoK</div>
+    <div>
+      <div class="edu-school">University of Kashmir</div>
+      <div class="edu-degree">B.Tech, Mechanical Engineering</div>
+      <div class="edu-year">Graduated 2023</div>
+      <p class="edu-note">Transitioned into performance marketing through self-driven learning and hands-on internship experience, building a strong analytical foundation applicable to UA and data-driven campaign management.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label reveal">Contact</div>
+  <div class="section-title reveal">Let's connect.</div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-available">Available for new opportunities</div>
+      <p class="contact-text">I'm always open to discussing new projects, campaign opportunities, or partnerships in mobile growth and performance marketing. Feel free to reach out through any of the channels below.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:danishshafibhatt@gmail.com" class="contact-link">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;">Email</div>
+          danishshafibhatt@gmail.com
+        </div>
+      </a>
+      <a href="tel:+919682602808" class="contact-link">
+        <div class="contact-icon">☎</div>
+        <div>
+          <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;">Phone</div>
+          +91-9682602808
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/danish-bhat" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <div class="contact-icon">in</div>
+        <div>
+          <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;">LinkedIn</div>
+          linkedin.com/in/danish-bhat
+        </div>
+      </a>
+      <a class="contact-link" style="cursor:default;">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;">Location</div>
+          Srinagar, J&K, India
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 <span>Danish Shafi Bhat</span>. All rights reserved.</div>
+  <div>UA Specialist · Performance Marketing · Mobile Growth</div>
+</footer>
+
+<script>
+  function enterSite() {
+    document.getElementById('splash').classList.add('hide');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Auto-dismiss on scroll
+  window.addEventListener('wheel', function() {
+    var s = document.getElementById('splash');
+    if (s && !s.classList.contains('hide')) enterSite();
+  }, { once: true });
+
+  // Prevent scroll while splash visible
+  document.body.style.overflow = 'hidden';
+
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
